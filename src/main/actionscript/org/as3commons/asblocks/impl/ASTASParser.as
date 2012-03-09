@@ -45,9 +45,10 @@ public class ASTASParser implements IASParser
 		return new ASTASCompilationUnit(ast);
 	}
 	
+	//JPhillips
 	public function parseIn(reader:IReader):IASCompilationUnit
 	{
-		return null;
+		return parse(reader.read());
 	}
 	
 	public function parseTypeBlock(source:String):IASCompilationUnit
@@ -65,9 +66,10 @@ public class ASTASParser implements IASParser
 		return new ASTASCompilationUnit(ast);
 	}
 	
+	//JPhillips
 	public function parseTypeBlockIn(reader:IReader):IASCompilationUnit
 	{
-		return null;
+		return parseTypeBlock(reader.read());
 	}
 	
 	public function parsePackageBlock(source:String):IASCompilationUnit
@@ -85,9 +87,10 @@ public class ASTASParser implements IASParser
 		return new ASTASCompilationUnit(ast);
 	}
 	
+	//JPhillips
 	public function parsePackageBlockIn(reader:IReader):IASCompilationUnit
 	{
-		return null;
+		return parsePackageBlock(reader.read());
 	}
 }
 }

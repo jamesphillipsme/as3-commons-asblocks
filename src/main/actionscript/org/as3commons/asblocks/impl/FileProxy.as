@@ -37,9 +37,20 @@ public class FileProxy implements IFile
 		this.file = file;
 	}
 	
+	//JPhillips:
+	//The FileProxy class now creates FileProxy objects for any returned File objects
 	public function getDirectoryListing():Array
 	{
-		return file.getDirectoryListing();
+		var retVal:Array=[];
+		var files:Array=file.getDirectoryListing();
+		var length:uint=files.length;
+		
+		for(var i:uint=0;i<length;i++)
+		{
+			retVal[i]=new FileProxy(files[i]);
+		}
+		
+		return retVal;
 	}
 }
 }

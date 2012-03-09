@@ -244,6 +244,9 @@ public class ASTASProject implements IASProject
 		return unit;
 	}
 	
+	//JPhillips
+	//FIXED: readAll method (for .as files ONLY)
+	//Is it only supposed to check the source path? What about the class path?
 	public function readAll():void
 	{
 		var failedFiles:IList = new ArrayList();
@@ -253,22 +256,18 @@ public class ASTASProject implements IASProject
 			var qnames:IList = root.getDefinitionQNames();
 			for each(var qname:ASQName in qnames.toArray())
 			{
-				trace(qname.toString());
 				var asparser:IASParser = factory.newParser();
 //				var fxparser:IASParser = new ASTFXParser();
 
 				var file:IFile = toSourceFile(root.getPath(), qname);
 
-//				FileInputStream in;
 				var unit:IASCompilationUnit;
 				try
 				{
 					if (StringUtils.endsWith(file.nativePath, ".as"))
 					{
-//						in = new FileInputStream(file);
-//						unit = asparser.parseHighlevelIn(new InputStreamReader(
-//								in));
-//						addCompilationUnit(unit);
+						unit = asparser.parseIn(factory.newFileReader(file));
+						addCompilationUnit(unit);
 					}
 					else if (StringUtils.endsWith(file.nativePath, ".mxml"))
 					{
@@ -276,9 +275,12 @@ public class ASTASProject implements IASProject
 //						unit = fxparser.parseIn(new InputStreamReader(in));
 //						((ASTFXCompilationUnit) unit).setQName((FXQname) qname);
 //						addCompilationUnit(unit);
+						
+						//JPhillips - .mxml not implemented yet
+						return;
 					}
-
-					//addFile(file, unit);
+					
+					addFile(file, unit);
 				}
 				catch (e:ASBlocksSyntaxError)
 				{
@@ -306,10 +308,10 @@ public class ASTASProject implements IASProject
 		}
 		trace("done");
 	}
-
+	
 	private function addFile(file:IFile, unit:IASCompilationUnit):void
 	{
-//		files.add(file.nativePath, new ASTASFile(file, unit));
+		files.add(file.nativePath, new ASTASFile(file, unit));
 	}
 
 	private function toSourceFile(path:IFile, name:ASQName):IFile

@@ -84,10 +84,19 @@ public class SourceFolderResourceRoot implements IResourceRoot
 		}
 		throw new IllegalArgumentError("Unkown file type for Resource " + file);
 	}
-
+	
+	//JPhillips:
+	//FIXED: line 99- var here:IFile = FileUtil.newFile(subfolder + FileUtil.separator + path);
+	//1) path is not a String, so it output [Object FileProxy]
+	//2) The separator and subfolder where added to the beginning, instead of the end the path
+	
+	//JPhillips:
+	//FIXED: line 103- The FileProxy class returned an array of flash.system.File objects, not IFile (or FileProxy) objects
+	//The FileProxy class now creates FileProxy objects for any returned File objects
+	
 	private function loadQNames(subfolder:String, result:IList):void
 	{
-		var here:IFile = FileUtil.newFile(subfolder + FileUtil.separator + path);
+		var here:IFile = FileUtil.newFile(path.nativePath + FileUtil.separator + subfolder);
 		var list:Array = here.getDirectoryListing();
 		for (var i:int = 0; i < list.length; i++)
 		{

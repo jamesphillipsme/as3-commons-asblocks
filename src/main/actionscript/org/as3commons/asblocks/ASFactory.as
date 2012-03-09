@@ -50,6 +50,7 @@ import org.as3commons.asblocks.dom.IASStatement;
 import org.as3commons.asblocks.dom.IASStringLiteral;
 import org.as3commons.asblocks.dom.IASUndefinedLiteral;
 import org.as3commons.asblocks.dom.IASXMLLiteral;
+import org.as3commons.asblocks.dom.IFile;
 import org.as3commons.asblocks.impl.ASTASParser;
 import org.as3commons.asblocks.impl.ASTASProject;
 import org.as3commons.asblocks.impl.ASTASWriter;
@@ -58,6 +59,8 @@ import org.as3commons.asblocks.impl.ASTExpressionBuilder;
 import org.as3commons.asblocks.impl.ASTLiteralBuilder;
 import org.as3commons.asblocks.impl.ASTStatementBuilder;
 import org.as3commons.asblocks.impl.ASTTypeBuilder;
+import org.as3commons.asblocks.impl.FileReader;
+import org.as3commons.asblocks.impl.IReader;
 import org.as3commons.asblocks.impl.TokenBuilder;
 import org.as3commons.collections.framework.IList;
 
@@ -112,6 +115,12 @@ public class ASFactory
 	//
 	//--------------------------------------------------------------------------
 
+	//JPhillips
+	public function newFileReader(file:IFile):IReader
+	{
+		return new FileReader(file);
+	}
+	
 	/**
 	 * Creates a new <code>IASBlockProject</code> project and sets it's 
 	 * <code>outputLocation</code>.

@@ -120,6 +120,8 @@ public class FileUtil
 		
 		var data:String = stream.readUTFBytes(stream.bytesAvailable);
 		
+		//JPhillips - closed the stream
+		stream.close();
 		return data;
 	}
 	
